@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cdtu.CDTUE.dao.SchoolMapper">
+  <resultMap id="BaseResultMap" type="cn.cdtu.CDTUE.pojo.School">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="schoolName" jdbcType="VARCHAR" property="schoolname" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="isGo" jdbcType="VARCHAR" property="isgo" />
+    <result column="isNeed" jdbcType="VARCHAR" property="isneed" />
+    <result column="createTime" jdbcType="VARCHAR" property="createtime" />
+    <result column="other" jdbcType="VARCHAR" property="other" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.cdtu.CDTUE.pojo.SchoolWithBLOBs">
+    <result column="info" jdbcType="LONGVARCHAR" property="info" />
+    <result column="history" jdbcType="LONGVARCHAR" property="history" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, schoolName, city, isGo, isNeed, createTime, other
+  </sql>
+  <sql id="Blob_Column_List">
+    info, history
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from school
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from school
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.cdtu.CDTUE.pojo.SchoolWithBLOBs">
+    insert into school (id, schoolName, city, 
+      isGo, isNeed, createTime, 
+      other, info, history
+      )
+    values (#{id,jdbcType=VARCHAR}, #{schoolname,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{isgo,jdbcType=VARCHAR}, #{isneed,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{other,jdbcType=VARCHAR}, #{info,jdbcType=LONGVARCHAR}, #{history,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.cdtu.CDTUE.pojo.SchoolWithBLOBs">
+    insert into school
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="schoolname != null">
+        schoolName,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="isgo != null">
+        isGo,
+      </if>
+      <if test="isneed != null">
+        isNeed,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="other != null">
+        other,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="history != null">
+        history,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolname != null">
+        #{schoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="isgo != null">
+        #{isgo,jdbcType=VARCHAR},
+      </if>
+      <if test="isneed != null">
+        #{isneed,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="history != null">
+        #{history,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.cdtu.CDTUE.pojo.SchoolWithBLOBs">
+    update school
+    <set>
+      <if test="schoolname != null">
+        schoolName = #{schoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="isgo != null">
+        isGo = #{isgo,jdbcType=VARCHAR},
+      </if>
+      <if test="isneed != null">
+        isNeed = #{isneed,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="history != null">
+        history = #{history,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.cdtu.CDTUE.pojo.SchoolWithBLOBs">
+    update school
+    set schoolName = #{schoolname,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      isGo = #{isgo,jdbcType=VARCHAR},
+      isNeed = #{isneed,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      info = #{info,jdbcType=LONGVARCHAR},
+      history = #{history,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.cdtu.CDTUE.pojo.School">
+    update school
+    set schoolName = #{schoolname,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      isGo = #{isgo,jdbcType=VARCHAR},
+      isNeed = #{isneed,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
